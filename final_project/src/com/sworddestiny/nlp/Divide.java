@@ -60,82 +60,48 @@ public class Divide {
     public static int[] getStatus(double[][] w, int[][] p, String str, int len) {
         int res[] = new int[len];
         int index = len - 1;
+        int before_status;
         if (w[e][index] > w[s][index]) {
             res[index] = e;
-            int before_status = p[e][index];
-            res[index - 1] = before_status;
-            while (index > 1) {
-                index--;
-                switch (before_status) {
-                    case b:
-                        if (w[s][index] > w[e][index]) {
-                            before_status = p[s][index];
-                        } else {
-                            before_status = p[e][index];
-                        }
-                        break;
-                    case e:
-                        if (w[b][index] > w[m][index]) {
-                            before_status = p[b][index];
-                        } else {
-                            before_status = p[m][index];
-                        }
-                        break;
-                    case m:
-                        if (w[b][index] > w[m][index]) {
-                            before_status = p[b][index];
-                        } else {
-                            before_status = p[m][index];
-                        }
-                        break;
-                    case s:
-                        if (w[e][index] > w[s][index]) {
-                            before_status = p[e][index];
-                        } else {
-                            before_status = p[s][index];
-                        }
-                        break;
-                }
-                res[index - 1] = before_status;
-            }
+            before_status = p[e][index];
         } else {
             res[index] = s;
-            int before_status = p[s][index];
-            res[index - 1] = before_status;
-            while (index > 1) {
-                index--;
-                switch (before_status) {
-                    case b:
-                        if (w[s][index] > w[e][index]) {
-                            before_status = p[s][index];
-                        } else {
-                            before_status = p[e][index];
-                        }
-                        break;
-                    case e:
-                        if (w[b][index] > w[m][index]) {
-                            before_status = p[b][index];
-                        } else {
-                            before_status = p[m][index];
-                        }
-                        break;
-                    case m:
-                        if (w[b][index] > w[m][index]) {
-                            before_status = p[b][index];
-                        } else {
-                            before_status = p[m][index];
-                        }
-                        break;
-                    case s:
-                        if (w[e][index] > w[s][index]) {
-                            before_status = p[e][index];
-                        } else {
-                            before_status = p[s][index];
-                        }
-                        break;
-                }
-                res[index - 1] = before_status;
+            before_status = p[s][index];
+        }
+        res[index - 1] = before_status;
+        while (index > 1) {
+            index--;
+            switch (before_status) {
+                case b:
+                    if (w[s][index] > w[e][index]) {
+                        before_status = p[s][index];
+                    } else {
+                        before_status = p[e][index];
+                    }
+                    break;
+                case e:
+                    if (w[b][index] > w[m][index]) {
+                        before_status = p[b][index];
+                    } else {
+                        before_status = p[m][index];
+                    }
+                    break;
+                case m:
+                    if (w[b][index] > w[m][index]) {
+                        before_status = p[b][index];
+                    } else {
+                        before_status = p[m][index];
+                    }
+                    break;
+                case s:
+                    if (w[e][index] > w[s][index]) {
+                        before_status = p[e][index];
+                    } else {
+                        before_status = p[s][index];
+                    }
+                    break;
             }
+            res[index - 1] = before_status;
         }
         return res;
     }
