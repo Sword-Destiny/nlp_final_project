@@ -6,7 +6,7 @@ public class Main {
             String input_file = args[0];
             System.out.println(input_file);
         }else {
-            System.out.println("please input file!");
+            Divide.main(null);
         }
     }
 }
