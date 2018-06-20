@@ -156,7 +156,7 @@ public class Divide {
                 //遍历前一个字可能的状态
                 for (int k = 0; k < 4; k++) {
                     Double d = statistics.pMatrix[j].get(str.charAt(i));
-                    double tmp = w[k][i - 1] + statistics.transformMatrix[k][j] + (d == null ? Double.NEGATIVE_INFINITY : d);
+                    double tmp = w[k][i - 1] + statistics.transformMatrix[k][j] + (d == null ? -100 : d);
                     // 找出最大的weight[j][i]值
                     if (tmp > w[j][i]) {
                         w[j][i] = tmp;
@@ -177,7 +177,7 @@ public class Divide {
     public static void initial(double[][] w, int[][] p, char c, int t) {
         for (int i = 0; i < status; i++) {
             Double d = statistics.pMatrix[i].get(c);
-            w[i][t] = (d == null ? Double.NEGATIVE_INFINITY : d);
+            w[i][t] = (d == null ? -100 : d);
             p[i][t] = 0;
         }
     }
@@ -186,7 +186,7 @@ public class Divide {
         System.out.println(viterbi("小明毕业于中国科学院"));
         System.out.println(viterbi("我和你在一起"));
         System.out.println(viterbi("你让我很不爽"));
-        System.out.println(viterbi("我们，在一个自然语言处理小组"));
+        System.out.println(viterbi("我们，,在一个自然语言处理小组"));
         System.out.println(viterbi("我们在一个自然语言处理小组"));
     }
 }
