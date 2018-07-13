@@ -5,9 +5,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 统计
+ * 对训练文件进行统计,得到统计结果train.statistics
+ * 训练文件一开始用的是北京大学人明日报语料train/train_data.txt,后来改用国家语委现代化语料data/train.txt
  */
 public class Statistics implements Serializable {
+    public static void main(String[] args) {
+        Statistics s = new Statistics();
+        s.statistics("data/train.txt");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("data/train.statistics")))) {
+            oos.writeObject(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public double[] initialMatrix = new double[4]; // b,e,m,s
 
     public double[][] transformMatrix = new double[4][4];
@@ -20,7 +31,7 @@ public class Statistics implements Serializable {
         }
     }
 
-    public void statistics() {
+    public void statistics(String f) {
         int b = 0, e = 1, m = 2, s = 3;
         long[] initialCount = new long[4]; // b,e,m,s
         long initialSum = 0;
@@ -31,9 +42,9 @@ public class Statistics implements Serializable {
             pCount[i] = new HashMap<>();
         }
         long[] pSum = new long[4];
-        File file = new File("train/train_data.txt");
+        File file = new File(f);
+        String line = null;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
             while ((line = br.readLine()) != null) {
                 String[] separates = line.split("\\s+");
                 for (int i = 1; i < separates.length; i++) {
@@ -167,18 +178,10 @@ public class Statistics implements Serializable {
                     pMatrix[i].put(entry.getKey(), Math.log(((double) entry.getValue()) / pSum[i]));
                 }
             }
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
+            System.out.println(line);
         }
     }
 
-    public static void main(String[] args) {
-        Statistics s = new Statistics();
-        s.statistics();
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("train/result.statistics")))) {
-            oos.writeObject(s);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
