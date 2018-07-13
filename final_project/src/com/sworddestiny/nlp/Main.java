@@ -8,11 +8,11 @@ import com.sworddestiny.nlp.train.Statistics;
 public class Main {
     public static void main(String[] args){
         System.out.println("示例:");
-        System.out.println(Divide.viterbi("我们毕业于中国科学院"));
-        System.out.println(Divide.viterbi("我和你在一起"));
-        System.out.println(Divide.viterbi("你让我很不爽"));
-        System.out.println(Divide.viterbi("我们，,在一个自然语言处理小组"));
-        System.out.println(Divide.viterbi("我们在一个自然语言处理小组"));
+        System.out.println(Divide.viterbi("你知道微软做出了哪些努力吗"));
+        System.out.println(Divide.viterbi("人们越来越高寿，微软希望能帮助医生完成一些繁重的工作"));
+        System.out.println(Divide.viterbi("银尘怎么样了依旧未知数"));
+        System.out.println(Divide.viterbi("法国和克罗地亚是冠军"));
+        System.out.println(Divide.viterbi("我们今天不看球，兄弟，别问我哦"));
 
         System.out.println("\n分割文件中......");
         Cut.main(null);
