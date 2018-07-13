@@ -14,7 +14,7 @@ public class Cut {
         ArrayList<String> arrayList = new ArrayList<>(500000);
         File file = new File("data/origin.txt");
         String line = null;
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
             while ((line = br.readLine()) != null) {
                 line = line.replace(" /w", "/w").replace(" /x", "/x");
                 arrayList.add(line);
@@ -23,7 +23,7 @@ public class Cut {
             int halfLen = len / 2;
             FileOutputStream fos = new FileOutputStream(new File("data/train.txt"));
             for (int i = 0; i < halfLen; i++) {
-                fos.write((arrayList.get(i) + "\r\n").getBytes());
+                fos.write((arrayList.get(i) + "\r\n").getBytes("UTF-8"));
             }
             fos = new FileOutputStream(new File("data/test.txt"));
             for (int i = halfLen; i < len; i++) {
@@ -34,7 +34,7 @@ public class Cut {
                     output += words[0];
                 }
                 output += "\r\n";
-                fos.write(output.getBytes());
+                fos.write(output.getBytes("UTF-8"));
             }
             fos = new FileOutputStream(new File("data/result.txt"));
             for (int i = halfLen; i < len; i++) {
@@ -47,7 +47,7 @@ public class Cut {
                 String[] words = separates[separates.length - 1].split("/");
                 output += words[0];
                 output += "\r\n";
-                fos.write(output.getBytes());
+                fos.write(output.getBytes("UTF-8"));
             }
 
         } catch (Exception e) {

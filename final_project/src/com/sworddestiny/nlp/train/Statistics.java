@@ -44,7 +44,7 @@ public class Statistics implements Serializable {
         long[] pSum = new long[4];
         File file = new File(f);
         String line = null;
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f),"UTF-8"))) {
             while ((line = br.readLine()) != null) {
                 String[] separates = line.split("\\s+");
                 for (int i = 1; i < separates.length; i++) {

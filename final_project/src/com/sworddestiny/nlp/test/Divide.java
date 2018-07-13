@@ -159,11 +159,11 @@ public class Divide {
 
     public static void devide_file(String input, String output) {
         String line = null;
-        try (BufferedReader br = new BufferedReader(new FileReader(input))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(input),"UTF-8"))) {
             FileOutputStream fos = new FileOutputStream(new File(output));
             while ((line = br.readLine()) != null) {
                 String divide_line = viterbi(line) + "\r\n";
-                fos.write(divide_line.getBytes());
+                fos.write(divide_line.getBytes("UTF-8"));
             }
         } catch (IOException e1) {
             e1.printStackTrace();

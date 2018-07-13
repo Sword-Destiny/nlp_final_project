@@ -14,8 +14,8 @@ public class CalculateCorrect {
         long correct = 0;
         long wrong = 0;
         String oline = null, rline = null;
-        try (BufferedReader obr = new BufferedReader(new FileReader(output));
-             BufferedReader rbr = new BufferedReader(new FileReader(result))) {
+        try (BufferedReader obr = new BufferedReader(new InputStreamReader(new FileInputStream(output),"UTF-8"));
+             BufferedReader rbr = new BufferedReader(new InputStreamReader(new FileInputStream(result),"UTF-8"))) {
             while ((oline = obr.readLine()) != null) {
                 rline = rbr.readLine();
                 int oindex = 0;
