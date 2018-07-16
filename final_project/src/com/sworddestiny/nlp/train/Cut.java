@@ -27,27 +27,27 @@ public class Cut {
             }
             fos = new FileOutputStream(new File("data/test.txt"));
             for (int i = halfLen; i < len; i++) {
-                String output = "";
+                StringBuilder output = new StringBuilder();
                 String[] separates = arrayList.get(i).split("\\s+");
                 for (int j = 1; j < separates.length; j++) {
                     String[] words = separates[j].split("/");
-                    output += words[0];
+                    output.append(words[0]);
                 }
-                output += "\r\n";
-                fos.write(output.getBytes("UTF-8"));
+                output.append("\r\n");
+                fos.write(output.toString().getBytes("UTF-8"));
             }
             fos = new FileOutputStream(new File("data/result.txt"));
             for (int i = halfLen; i < len; i++) {
-                String output = "";
+                StringBuilder output = new StringBuilder();
                 String[] separates = arrayList.get(i).split("\\s+");
                 for (int j = 1; j < separates.length - 1; j++) {
                     String[] words = separates[j].split("/");
-                    output += words[0] + "/";
+                    output.append(words[0]).append("/");
                 }
                 String[] words = separates[separates.length - 1].split("/");
-                output += words[0];
-                output += "\r\n";
-                fos.write(output.getBytes("UTF-8"));
+                output.append(words[0]);
+                output.append("\r\n");
+                fos.write(output.toString().getBytes("UTF-8"));
             }
 
         } catch (Exception e) {

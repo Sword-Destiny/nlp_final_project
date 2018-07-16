@@ -14,32 +14,42 @@ public class CalculateCorrect {
         long correct = 0;
         long wrong = 0;
         String oline = null, rline = null;
-        try (BufferedReader obr = new BufferedReader(new InputStreamReader(new FileInputStream(output),"UTF-8"));
-             BufferedReader rbr = new BufferedReader(new InputStreamReader(new FileInputStream(result),"UTF-8"))) {
+        try (BufferedReader obr = new BufferedReader(new InputStreamReader(new FileInputStream(output), "UTF-8"));
+             BufferedReader rbr = new BufferedReader(new InputStreamReader(new FileInputStream(result), "UTF-8"))) {
             while ((oline = obr.readLine()) != null) {
                 rline = rbr.readLine();
+                boolean[] rb = new boolean[rline.length()];
+                boolean[] ob = new boolean[oline.length()];
                 int oindex = 0;
                 int rindex = 0;
-                while (oindex < oline.length() && rindex < rline.length()) {
-                    char o = oline.charAt(oindex);
-                    char r = rline.charAt(rindex);
-                    if (o == '/' && r == '/') {
+                for (int i = 0; i < oline.length() - 1; i++) {
+                    if (oline.charAt(i) != '/' && oline.charAt(i + 1) == '/') {
+                        ob[oindex++] = true;
+                    }
+                    if (oline.charAt(i) != '/' && oline.charAt(i + 1) != '/') {
+                        ob[oindex++] = false;
+                    }
+                }
+                for (int i = 0; i < rline.length() - 1; i++) {
+                    if (rline.charAt(i) != '/' && rline.charAt(i + 1) == '/') {
+                        rb[rindex++] = true;
+                    }
+                    if (rline.charAt(i) != '/' && rline.charAt(i + 1) != '/') {
+                        rb[rindex++] = false;
+                    }
+                }
+                if (rindex != oindex) {
+                    throw new Exception("error");
+                }
+                for (int i = 0; i < rindex; i++) {
+                    if (rb[i] == ob[i]) {
                         correct++;
-                        oindex++;
-                        rindex++;
-                    } else if (o != '/' && r != '/') {
-                        oindex++;
-                        rindex++;
-                    } else if (o != '/' && r == '/') {
-                        wrong++;
-                        rindex++;
                     } else {
                         wrong++;
-                        oindex++;
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("正确率:" + (double) correct / (correct + wrong));
